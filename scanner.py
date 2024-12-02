@@ -199,10 +199,6 @@ def save_to_excel(results, filename):
 
 
 def sort_results(results):
-    """
-    Сортирует результаты сканирования по статусу.
-    'OPEN' - первый приоритет, затем 'WARNING', и в конце 'ERROR'.
-    """
     status_priority = {'OPEN': 1, 'WARNING': 2, 'ERROR': 3}
     return sorted(results, key=lambda x: status_priority.get(x['status'], 4))
 
