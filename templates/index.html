@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Network Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+        <h1 class="text-2xl font-bold mb-6 text-center">Network Scanner</h1>
+        <form action="/scan" method="post" class="space-y-4">
+            <input
+                type="text"
+                name="url"
+                placeholder="Enter website URL (e.g. chatgpt.com)"
+                required
+                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+            >
+            <button
+                type="submit"
+                class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
+            >
+                Scan
+            </button>
+        </form>
+    </div>
+</body>
+</html>
