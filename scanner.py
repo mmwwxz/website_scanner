@@ -198,6 +198,16 @@ def save_to_excel(results, filename):
     return full_path
 
 
+def sort_results(results):
+    """
+    Сортирует результаты сканирования по статусу.
+    'OPEN' - первый приоритет, затем 'WARNING', и в конце 'ERROR'.
+    """
+    status_priority = {'OPEN': 1, 'WARNING': 2, 'ERROR': 3}
+    return sorted(results, key=lambda x: status_priority.get(x['status'], 4))
+
+
+
 def scanner(host, output_filename=None):
     host = clean_url(host)
     results = []
@@ -224,9 +234,11 @@ def scanner(host, output_filename=None):
     if ssl_result:
         results.append(ssl_result)
 
+    sorted_results = sort_results(results)
+
     if output_filename is None:
         output_filename = f"{host}_scan_results.xlsx"
 
-    saved_path = save_to_excel(results, output_filename)
+    saved_path = save_to_excel(sorted_results, output_filename)
 
-    return results, saved_path
+    return sorted_results, saved_path
