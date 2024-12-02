@@ -77,6 +77,21 @@ def check_url(url, host, cache={}):
         response = requests.get(f"{url}", timeout=5, allow_redirects=True)
 
         if response.status_code == 404:
+            soup = BeautifulSoup(response.content, "html.parser")
+            title = soup.title.string if soup.title else ""
+
+            interesting_patterns = ["page not found"]
+
+            for pattern in interesting_patterns:
+                if pattern in title.lower():
+                    return {
+                        'type': 'URL Check',
+                        'host': host,
+                        'details': f"Error 404 at {url}",
+                        'status': 'OPEN'
+                    }
+
+
             return {'type': 'URL Check', 'host': host, 'details': f"Error 404 at {url}", 'status': 'ERROR'}
 
         if response.status_code in [301, 302]:
@@ -145,7 +160,7 @@ def check_api_docs(host, port):
         "/keys", "/certificates", "/token", "/tokens", "/secrets", "/api/secrets",
         "/db", "/database", "/dump", "/logs", "/log", "/debug.log", "/access.log", "/error.log",
         "/user", "/users", "/user/profile", "/payment", "/checkout", "/cart", "/invoice",
-        "/order", "/orders", "/transactions"
+        "/order", "/orders", "/transactions", "/api/docs", "/api/redoc", '/api/asas'
     ]
 
     results = []
