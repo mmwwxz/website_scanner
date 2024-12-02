@@ -8,7 +8,7 @@ import os
 
 from scanner import scanner, clean_url
 
-executor = ThreadPoolExecutor(max_workers=10)
+executor = ThreadPoolExecutor(max_workers=3)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
